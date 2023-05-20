@@ -4,4 +4,4 @@ import getHandler from '@/lib/utils/handler'
 
 const handler = getHandler()
 
-export default handler.get(asyncWrapper(logout))
+export default handler.post(asyncWrapper(logout))

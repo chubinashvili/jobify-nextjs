@@ -86,7 +86,7 @@ export const setupUser = async (
 
 export const logoutUser = async (dispatch: Dispatch) => {
   try {
-    await axios.get('/api/logout')
+    await axios.post('/api/logout')
     dispatch(resetUserState())
     dispatch(resetStatsState())
     dispatch(resetAlertsState())
