@@ -2,14 +2,21 @@
 import { NextPage } from 'next'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 
+import { SharedLayout } from '@/components'
 import { wrapper } from '@/store'
 import '@/styles/globals.css'
 
 const MyApp: NextPage<AppProps> = ({ Component, ...rest }) => {
   const { store, props } = wrapper.useWrappedStore(rest)
+  const router = useRouter()
+
+  const routesWithoutSharedLayout = ['/landing', '/404', '/register']
+
+  const shouldWrapWithSharedLayout = !routesWithoutSharedLayout.includes(router.pathname)
 
   return (
     <>
@@ -27,7 +34,13 @@ const MyApp: NextPage<AppProps> = ({ Component, ...rest }) => {
       <Provider store={store}>
         {/* @ts-ignore */}
         <PersistGate persistor={store.__persistor}>
-          <Component {...props.pageProps} />
+          {shouldWrapWithSharedLayout ? (
+            <SharedLayout>
+              <Component {...props.pageProps} />
+            </SharedLayout>
+          ) : (
+            <Component {...props.pageProps} />
+          )}
         </PersistGate>
       </Provider>
     </>
