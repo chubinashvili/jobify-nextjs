@@ -10,7 +10,6 @@ const asyncWrapper = (controller: Controller) => {
       if (error instanceof BadRequestError || error instanceof UnauthenticatedError || error instanceof NotFoundError) {
         throw error
       } else {
-        console.log(error)
         throw new ServerError('Server Error')
       }
     }

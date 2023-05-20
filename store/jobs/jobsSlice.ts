@@ -240,7 +240,6 @@ export const deleteJob = async (
     await axios.delete(`/api/jobs/${jobId}`)
     getJobs(dispatch, { page, search, searchStatus, searchType, sort })
   } catch (err: any) {
-    console.log(err?.response?.data?.error)
     dispatch(setErrorAlert({ msg: err?.response?.data?.error }))
   }
   clearAlert(dispatch)
