@@ -20,9 +20,9 @@ const ProtectedRoute: NextPage<ProtectedRouteProps> = ({ children, condition = t
 
   function checkRoute() {
     if ((!memoizedUser || !condition) && isProtected && router.pathname !== '/landing') {
-      router.replace('/register')
+      router.push('/register', undefined, { shallow: true })
     } else if ((router.pathname === '/register' || router.pathname === '/landing') && memoizedUser && isProtected) {
-      router.replace('/')
+      router.push('/', undefined, { shallow: true })
     }
   }
 
